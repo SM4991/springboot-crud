@@ -1,7 +1,9 @@
 package com.java.crudbolierplate.util;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class DateUtil {
     /**
@@ -20,5 +22,14 @@ public class DateUtil {
     public static String convertLocalDateTimeToFormat(LocalDateTime dateTime) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern(getDateTimeFormat());
         return fmt.format(dateTime).toString();
+    }
+
+    /**
+     * Get Current Timestamp
+     * @return
+     */
+    public static Timestamp getCurrentTimestamp() {
+        Date date = new Date();
+        return new Timestamp(date.getTime());
     }
 }
