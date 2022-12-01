@@ -1,0 +1,7 @@
+tasks:
+  - name: Spring boot CRUD Boilerplate
+    init: bash ./install.gitpod.sh
+
+ports:
+  - port: 8080 # Spring boot CRUD Boilerplate
+    onOpen: ignore
