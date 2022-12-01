@@ -33,14 +33,10 @@ public class UserService {
             user.setMobile(userDto.getMobile());
             user.setName(userDto.getName());
             user.setPassword(userDto.getPassword());
-            try{
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                sdf.setLenient(false);
-                Date convertedDate = sdf.parse(userDto.getDob());
-                java.sql.Date dob = new java.sql.Date(convertedDate.getTime());
-                user.setDob(dob);
-            } catch(ParseException ex) {
-                return Pair.of(false, "Invalid date, Please enter date in format: yyyy-MM-dd");
+            if(DateUtil.isValidDateFormat(DateUtil.getGlobalDateFormat(), userDto.getDob())) {
+                user.setDob(DateUtil.convertDateStringToSqlDate(DateUtil.getGlobalDateFormat(), userDto.getDob()));
+            } else {
+                return Pair.of(false, "Invalid date, Please enter date in format: "+DateUtil.getGlobalDateFormat());
             }
             user.setRole(UserRole.CANDIDATE.toString());
             user.setCreatedAt(DateUtil.getCurrentTimestamp());
@@ -64,16 +60,10 @@ public class UserService {
     public Pair<Boolean, Object> updateUser(User user, UserDto userDto) {
         user.setName(userDto.getName());
         user.setPassword(userDto.getPassword());
-        if(userDto.getDob() != null) {
-            try{
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                sdf.setLenient(false);
-                Date convertedDate = sdf.parse(userDto.getDob());
-                java.sql.Date dob = new java.sql.Date(convertedDate.getTime());
-                user.setDob(dob);
-            } catch(ParseException ex) {
-                return Pair.of(false, "Invalid date, Please enter date in format: yyyy-MM-dd");
-            }
+        if(DateUtil.isValidDateFormat(DateUtil.getGlobalDateFormat(), userDto.getDob())) {
+            user.setDob(DateUtil.convertDateStringToSqlDate(DateUtil.getGlobalDateFormat(), userDto.getDob()));
+        } else {
+            return Pair.of(false, "Invalid date, Please enter date in format: "+DateUtil.getGlobalDateFormat());
         }
         user.setUpdatedAt(DateUtil.getCurrentTimestamp());
         user = userRepository.save(user);
