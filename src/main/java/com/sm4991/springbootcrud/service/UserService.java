@@ -1,11 +1,11 @@
-package com.java.crudbolierplate.service;
+package com.sm4991.springbootcrud.service;
 
-import com.java.crudbolierplate.dto.CreateUserDto;
-import com.java.crudbolierplate.dto.UpdateUserDto;
-import com.java.crudbolierplate.entity.User;
-import com.java.crudbolierplate.enums.UserRole;
-import com.java.crudbolierplate.repository.UserRepository;
-import com.java.crudbolierplate.util.DateUtil;
+import com.sm4991.springbootcrud.dto.CreateUserDto;
+import com.sm4991.springbootcrud.dto.UpdateUserDto;
+import com.sm4991.springbootcrud.entity.User;
+import com.sm4991.springbootcrud.enums.UserRole;
+import com.sm4991.springbootcrud.repository.UserRepository;
+import com.sm4991.springbootcrud.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;

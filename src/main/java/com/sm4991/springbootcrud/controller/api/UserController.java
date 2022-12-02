@@ -1,10 +1,10 @@
-package com.java.crudbolierplate.controller.api;
+package com.sm4991.springbootcrud.controller.api;
 
-import com.java.crudbolierplate.dto.CreateUserDto;
-import com.java.crudbolierplate.dto.UpdateUserDto;
-import com.java.crudbolierplate.entity.User;
-import com.java.crudbolierplate.response.ResponseWrapper;
-import com.java.crudbolierplate.service.UserService;
+import com.sm4991.springbootcrud.entity.User;
+import com.sm4991.springbootcrud.response.ResponseWrapper;
+import com.sm4991.springbootcrud.service.UserService;
+import com.sm4991.springbootcrud.dto.CreateUserDto;
+import com.sm4991.springbootcrud.dto.UpdateUserDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;

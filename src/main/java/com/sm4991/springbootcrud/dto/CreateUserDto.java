@@ -1,4 +1,4 @@
-package com.java.crudbolierplate.dto;
+package com.sm4991.springbootcrud.dto;
 
 import lombok.*;
 
@@ -7,8 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UpdateUserDto {
+public class CreateUserDto {
     private String name;
+    private String mobile;
+    private String email;
     private String password;
     private String dob;
 }

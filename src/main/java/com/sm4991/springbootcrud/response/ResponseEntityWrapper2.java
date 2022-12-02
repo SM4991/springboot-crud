@@ -1,4 +1,4 @@
-package com.java.crudbolierplate.response;
+package com.sm4991.springbootcrud.response;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

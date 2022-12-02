@@ -1,4 +1,4 @@
-package com.java.crudbolierplate.entity;
+package com.sm4991.springbootcrud.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

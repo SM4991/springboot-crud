@@ -1,4 +1,4 @@
-package com.java.crudbolierplate.util;
+package com.sm4991.springbootcrud.util;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

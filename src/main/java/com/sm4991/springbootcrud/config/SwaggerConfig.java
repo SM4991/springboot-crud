@@ -1,4 +1,4 @@
-package com.java.crudbolierplate.config;
+package com.sm4991.springbootcrud.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,9 +22,9 @@ public class SwaggerConfig {
     public Docket apis() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-//                .apis(RequestHandlerSelectors.basePackage("com.java.crudbolierplate"))
-                .apis(RequestHandlerSelectors.basePackage("com.java.crudbolierplate.controller.api"))
-//                .paths(regex("/product.*"))
+//                .apis(RequestHandlerSelectors.basePackage("com.sm4991.springbootcrud"))
+                .apis(RequestHandlerSelectors.basePackage("com.sm4991.springbootcrud.controller.api"))
+//                .paths(regex("/users.*"))
                 .build()
                 .apiInfo(metaData());
     }

@@ -1,10 +1,10 @@
-package com.java.crudbolierplate;
+package com.sm4991.springbootcrud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CrudbolierplateApplicationTests {
+class SpringBootCrudApplicationTests {
 
     @Test
     void contextLoads() {

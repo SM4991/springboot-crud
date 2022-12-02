@@ -1,6 +1,6 @@
-package com.java.crudbolierplate.repository;
+package com.sm4991.springbootcrud.repository;
 
-import com.java.crudbolierplate.entity.User;
+import com.sm4991.springbootcrud.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.java.crudbolierplate.response;
+package com.sm4991.springbootcrud.response;
 
 
-import com.java.crudbolierplate.util.DateUtil;
+import com.sm4991.springbootcrud.util.DateUtil;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpStatus;

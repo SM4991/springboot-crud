@@ -1,4 +1,4 @@
-package com.java.crudbolierplate.controller;
+package com.sm4991.springbootcrud.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
