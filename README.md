@@ -8,6 +8,8 @@ Swagger UI is implemented to test the rest apis.
 ## Tech Stack
 * Java
 * Postgresql
+* Swagger UI
+* Docker
 
 ## Postman Api Collection 
 [Api Collection](https://documenter.getpostman.com/view/24715336/2s8Yt1sV6s)
