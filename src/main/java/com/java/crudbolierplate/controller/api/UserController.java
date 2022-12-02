@@ -1,10 +1,11 @@
 package com.java.crudbolierplate.controller.api;
 
-import com.java.crudbolierplate.dto.UserDto;
+import com.java.crudbolierplate.dto.CreateUserDto;
+import com.java.crudbolierplate.dto.UpdateUserDto;
 import com.java.crudbolierplate.entity.User;
-import com.java.crudbolierplate.repository.UserRepository;
 import com.java.crudbolierplate.response.ResponseWrapper;
 import com.java.crudbolierplate.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,8 @@ public class UserController {
      * @param request
      * @return
      */
-    @GetMapping(value = "/")
+    @ApiOperation(value = "List of users", response = ResponseWrapper.class)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseWrapper getAll(HttpServletRequest request) {
         return ResponseWrapper.success(request, "User List", userService.getAll());
     }
@@ -36,6 +38,7 @@ public class UserController {
      * @param id
      * @return
      */
+    @ApiOperation(value = "Find a user by id", response = ResponseWrapper.class)
     @GetMapping(value = "/{id}")
     public ResponseWrapper getOne(HttpServletRequest request, @PathVariable UUID id) {
         Optional<User> user = userService.getById(id);
@@ -49,12 +52,13 @@ public class UserController {
     /**
      * Api to create a new user
      * @param request
-     * @param userDto
+     * @param createUserDto
      * @return
      */
+    @ApiOperation(value = "Add a new user", response = ResponseWrapper.class)
     @PostMapping(value = "/")
-    public ResponseWrapper create(HttpServletRequest request, @RequestBody UserDto userDto) {
-        Pair<Boolean, Object> result = userService.createUser(userDto);
+    public ResponseWrapper create(HttpServletRequest request, @RequestBody CreateUserDto createUserDto) {
+        Pair<Boolean, Object> result = userService.createUser(createUserDto);
         if(result.getFirst() == true) {
             return ResponseWrapper.success(request, "User created successfully.", result.getSecond());
         } else {
@@ -65,14 +69,15 @@ public class UserController {
     /**
      * Api to create a new user
      * @param request
-     * @param userDto
+     * @param createUserDto
      * @return
      */
+    @ApiOperation(value = "Update an existing user by id", response = ResponseWrapper.class)
     @PutMapping(value = "/{id}")
-    public ResponseWrapper update(HttpServletRequest request, @PathVariable UUID id, @RequestBody UserDto userDto) {
+    public ResponseWrapper update(HttpServletRequest request, @PathVariable UUID id, @RequestBody UpdateUserDto updateUserDto) {
         Optional<User> user = userService.getById(id);
         if(user.isPresent()) {
-            Pair<Boolean, Object> result = userService.updateUser(user.get(), userDto);
+            Pair<Boolean, Object> result = userService.updateUser(user.get(), updateUserDto);
             if(result.getFirst() == true) {
                 return ResponseWrapper.success(request, "User updated successfully.", result.getSecond());
             } else {
@@ -89,6 +94,7 @@ public class UserController {
      * @param id
      * @return
      */
+    @ApiOperation(value = "Delete a user by id", response = ResponseWrapper.class)
     @DeleteMapping(value = "/{id}")
     public ResponseWrapper delete(HttpServletRequest request, @PathVariable UUID id) {
         Boolean result = userService.deleteById(id);
