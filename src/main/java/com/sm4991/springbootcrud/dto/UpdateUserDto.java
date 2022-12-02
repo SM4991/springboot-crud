@@ -9,6 +9,5 @@ import lombok.*;
 @Builder
 public class UpdateUserDto {
     private String name;
-    private String password;
     private String dob;
 }

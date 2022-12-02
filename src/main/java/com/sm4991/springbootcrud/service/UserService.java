@@ -6,6 +6,7 @@ import com.sm4991.springbootcrud.entity.User;
 import com.sm4991.springbootcrud.enums.UserRole;
 import com.sm4991.springbootcrud.repository.UserRepository;
 import com.sm4991.springbootcrud.util.DateUtil;
+import org.apache.tomcat.util.net.openssl.ciphers.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,6 @@ public class UserService {
      */
     public Pair<Boolean, Object> updateUser(User user, UpdateUserDto updateUserDto) {
         user.setName(updateUserDto.getName());
-        user.setPassword(updateUserDto.getPassword());
         if(DateUtil.isValidDateFormat(DateUtil.getGlobalDateFormat(), updateUserDto.getDob())) {
             user.setDob(DateUtil.convertDateStringToSqlDate(DateUtil.getGlobalDateFormat(), updateUserDto.getDob()));
         } else {
