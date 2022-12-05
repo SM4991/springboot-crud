@@ -7,7 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UpdateUserDto {
+public class ProductDto {
     private String name;
-    private String dob;
+    private String description;
+    private Float amount;
 }

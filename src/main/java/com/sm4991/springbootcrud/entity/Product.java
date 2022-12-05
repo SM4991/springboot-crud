@@ -13,20 +13,17 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
-@Table(name = "users")
+@Table(name = "product")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String name;
-    private String mobile;
-    private String email;
-    private String password;
-    private Date dob;
-    private String role;
+    private String description;
+    private Float amount;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }
