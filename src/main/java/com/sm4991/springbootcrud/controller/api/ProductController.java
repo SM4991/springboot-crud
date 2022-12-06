@@ -5,11 +5,14 @@ import com.sm4991.springbootcrud.response.ResponseWrapper;
 import com.sm4991.springbootcrud.service.ProductService;
 import com.sm4991.springbootcrud.dto.ProductDto;
 import io.swagger.annotations.ApiOperation;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
@@ -29,7 +32,11 @@ public class ProductController {
     @ApiOperation(value = "List of products", response = ResponseWrapper.class)
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseWrapper getAll(HttpServletRequest request) {
-        return ResponseWrapper.success(request, "Product List", productService.getAll());
+        try {
+            return ResponseWrapper.success(request, "Product List", productService.getAll());
+        } catch (HttpServerErrorException.InternalServerError ex) {
+            return ResponseWrapper.error(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
+        }
     }
 
     /**
@@ -41,11 +48,15 @@ public class ProductController {
     @ApiOperation(value = "Find a product by id", response = ResponseWrapper.class)
     @GetMapping(value = "/{id}")
     public ResponseWrapper getOne(HttpServletRequest request, @PathVariable UUID id) {
-        Optional<Product> user = productService.getById(id);
-        if(user.isPresent()) {
-            return ResponseWrapper.success(request, "Product Data", user.get());
-        } else {
-            return ResponseWrapper.error(request, HttpStatus.NOT_FOUND, "Product not found.", null);
+        try{
+            Optional<Product> user = productService.getById(id);
+            if(user.isPresent()) {
+                return ResponseWrapper.success(request, "Product Data", user.get());
+            } else {
+                return ResponseWrapper.error(request, HttpStatus.NOT_FOUND, "Product not found.", null);
+            }
+        } catch (HttpServerErrorException.InternalServerError ex) {
+            return ResponseWrapper.error(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
         }
     }
 
@@ -58,11 +69,17 @@ public class ProductController {
     @ApiOperation(value = "Add a new product", response = ResponseWrapper.class)
     @PostMapping(value = "/")
     public ResponseWrapper create(HttpServletRequest request, @RequestBody ProductDto productDto) {
-        Pair<Boolean, Object> result = productService.createProduct(productDto);
-        if(result.getFirst() == true) {
-            return ResponseWrapper.success(request, "Product created successfully.", result.getSecond());
-        } else {
-            return ResponseWrapper.error(request, HttpStatus.BAD_REQUEST, result.getSecond().toString(), null);
+        try{
+            Pair<Boolean, Object> result = productService.createProduct(productDto);
+            if(result.getFirst() == true) {
+                return ResponseWrapper.success(request, "Product created successfully.", result.getSecond());
+            } else {
+                return ResponseWrapper.error(request, HttpStatus.BAD_REQUEST, result.getSecond().toString(), null);
+            }
+        } catch (DataIntegrityViolationException ex) {
+            return ResponseWrapper.error(request, HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+        } catch (HttpServerErrorException.InternalServerError ex) {
+            return ResponseWrapper.error(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
         }
     }
 
@@ -75,16 +92,22 @@ public class ProductController {
     @ApiOperation(value = "Update an existing product by id", response = ResponseWrapper.class)
     @PutMapping(value = "/{id}")
     public ResponseWrapper update(HttpServletRequest request, @PathVariable UUID id, @RequestBody ProductDto productDto) {
-        Optional<Product> user = productService.getById(id);
-        if(user.isPresent()) {
-            Pair<Boolean, Object> result = productService.updateProduct(user.get(), productDto);
-            if(result.getFirst() == true) {
-                return ResponseWrapper.success(request, "Product updated successfully.", result.getSecond());
+        try{
+            Optional<Product> user = productService.getById(id);
+            if(user.isPresent()) {
+                Pair<Boolean, Object> result = productService.updateProduct(user.get(), productDto);
+                if(result.getFirst() == true) {
+                    return ResponseWrapper.success(request, "Product updated successfully.", result.getSecond());
+                } else {
+                    return ResponseWrapper.error(request, HttpStatus.BAD_REQUEST, result.getSecond().toString(), null);
+                }
             } else {
-                return ResponseWrapper.error(request, HttpStatus.BAD_REQUEST, result.getSecond().toString(), null);
+                return ResponseWrapper.error(request, HttpStatus.NOT_FOUND, "Product not found.", null);
             }
-        } else {
-            return ResponseWrapper.error(request, HttpStatus.NOT_FOUND, "Product not found.", null);
+        } catch (DataIntegrityViolationException ex) {
+            return ResponseWrapper.error(request, HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+        } catch (HttpServerErrorException.InternalServerError ex) {
+            return ResponseWrapper.error(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
         }
     }
 
@@ -106,6 +129,8 @@ public class ProductController {
             }
         } catch (EmptyResultDataAccessException ex) {
             return ResponseWrapper.error(request, HttpStatus.BAD_REQUEST, "Product with id does not exists.", null);
+        } catch (HttpServerErrorException.InternalServerError ex) {
+            return ResponseWrapper.error(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
         }
     }
 }

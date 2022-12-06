@@ -6,7 +6,7 @@ The boilerplate is designed to be used as a starting point for developing modern
 Swagger UI is implemented to test the rest apis.
 
 ## Demo
-![demo](src/main/resources/static/images/demo.gif)
+![demo](src/main/resources/static/images/Spring-boot-crud-demo.gif)
 
 ## Tech Stack
 * Java
@@ -48,7 +48,7 @@ mvn spring-boot:run
 ```
 
 ## Postman Api Collection 
-[Api Collection](https://documenter.getpostman.com/view/24715336/2s8Yt1sV6s)
+[Api Collection](https://documenter.getpostman.com/view/24715336/2s8YzP1jA7)
 
 ## Gitpod Workspace
 We have added support to run this on gitpod directly to check how this application works.
