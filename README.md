@@ -8,7 +8,7 @@ The boilerplate is designed to be used as a starting point for developing modern
 Swagger UI is implemented to test the rest apis.
 
 ## Demo
-![demo](src/main/resources/static/images/Spring-boot-crud-demo.gif)
+![demo](src/main/resources/static/images/Spring-boot-application.gif)
 
 ## Tech Stack
 * Java
